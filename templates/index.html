@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <style>
+      .feature-icon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.75rem;
+      }
+    </style>
+  </head>
+
+<header class="py-3 mb-4 border-bottom">
+    <div class="container d-flex flex-wrap justify-content-center">
+      <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16" >
+        <path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-8 8c1.996 0 1.826-1.504 1.649-3.08-.124-1.101-.252-2.237.351-2.92.465-.527 1.42-.237 2.433.07M8 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m4.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3M5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+        </svg>
+        <span class="fs-4">Color Palette Generator</span>
+      </a>
+
+    </div>
+  </header>
+
+  <div class="container marketing">
+
+  
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">Upload An Image<span class="text-body-secondary">Understand color </span></h2>
+        <p class="lead">Ever had Picture you Wanted to Know Which is Used in it for Own Designs? Good News We are Here to Help!</p>
+        <form method="post" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          {{ form.image.label }} {{ form.image() }}
+          <input type="submit" value="Upload Image">
+        </form>
+
+      </div>
+      <div class="col-md-5">
+        {% if upload: %}
+          <img src="/static/images/{{ filename }}" width="500" height="500" role="img">
+        {% else %}
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">Your Image Here</text></svg>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+    
+    <!-- Three columns of text below the carousel -->
+    {% if color_percentages: %}
+    <div class="row">
+      <h2 class="fw-normal">3 Most Used Colors in the image you uploaded:</h2>
+      {% for label, percentage in color_percentages.items() %}
+        <div class="col-lg-4">
+          <div class="card">
+            {% for color in colors %}
+                <div class="card-body" style="background-color:rgb({{ color[0] }}, {{ color[1] }}, {{ color[2] }});">
+                  <h2 class="fw-normal">{{color}}</h2>
+                  <p>{{ percentage }}%</p>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+      {% else %}
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="static/images/upload_ic.svg" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img">
+        <h2 class="fw-normal">Firstly </h2>
+        <p>Upload an Image that you are Curious About.</p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="static/images/code.svg" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img">
+        <h2 class="fw-normal">Secondly</h2>
+        <p>Let Us do the Calculations Behind the Scenes.</p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="static/images/color.png" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img">
+        <h2 class="fw-normal">Thirdly</h2>
+        <p>And lastly, Recieve a color pallets that accurately Show the 3 Most Commonly Used Colors in Your Image!</p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+  </div>
+  </html>
+    {% endif %}
+
+
+  <hr class="featurette-divider">
+
+  <footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">© {{date}} Color Palette Generator, Inc</p>
+  </footer>

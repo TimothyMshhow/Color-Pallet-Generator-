@@ -1,0 +1,17 @@
+.subheading {
+    color="white"
+}
+
+.masthead {
+    height:100vh
+}
+
+.year {
+    color: orange;
+}
+
+:root {
+  --red: red;
+  --green: green;
+  --blue: blue;
+}
